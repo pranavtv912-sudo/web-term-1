@@ -1,0 +1,230 @@
+<html>
+<head>
+ <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Contact | Our Restaurant</title>
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      /* ✨ Added background fade animation */
+      opacity:0;
+      animation: fadeInBody 0.9s ease-out forwards;
+    }
+
+    @keyframes fadeInBody {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+    }
+
+    /* ✨ Fade navbar */
+    nav.navbar {
+      opacity:0;
+      animation: fadeUp .8s ease-out forwards;
+      animation-delay: .1s;
+    }
+
+    .page-wrapper {
+      padding: 90px 15px 40px;
+    }
+
+    .title-main {
+      text-align:center;
+      font-size:32px;
+      font-weight:700;
+      margin-bottom:5px;
+
+      /* ✨ Sliding animation */
+      opacity:0;
+      animation: fadeUp .9s ease-out forwards;
+      animation-delay:.25s;
+    }
+
+    .title-sub {
+      text-align:center;
+      max-width:550px;
+      margin:0 auto 35px;
+      color:#374151;
+      font-size:14px;
+
+      /* ✨ Fade delay */
+      opacity:0;
+      animation: fadeUp .9s ease-out forwards;
+      animation-delay:.45s;
+    }
+
+    .contact-card {
+      border-radius:15px;
+      border:none;
+      box-shadow:0 10px 25px rgba(0,0,0,0.20);
+      background:#ffffffdd;
+      backdrop-filter: blur(7px);
+
+      /* ✨ Smooth card pop */
+      opacity:0;
+      animation: cardPop .9s ease forwards;
+      animation-delay:.55s;
+    }
+
+    .info-box {
+      background:#ffffff;
+      border-radius:15px;
+      padding:25px;
+      box-shadow:0 10px 20px rgba(0,0,0,0.15);
+
+      /* ✨ Slide-in */
+      opacity:0;
+      animation: fadeUp .9s ease-out forwards;
+      animation-delay:.7s;
+    }
+
+    .social a {
+      font-size:20px;
+      text-decoration:none;
+      margin-right:15px;
+      color:#374151;
+      transition:0.3s;
+    }
+
+    .social a:hover {
+      color:#111;
+    }
+
+    .map-holder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ddd;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+
+      /* ✨ Fade + lift animation */
+      opacity:0;
+      animation: fadeUp .9s ease-out forwards;
+      animation-delay:.85s;
+    }
+
+    .map-holder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition:.4s;
+    }
+
+    .map-holder:hover img {
+      transform: scale(1.05);
+    }
+
+    /* 🌟 ANIMATION KEYFRAMES */
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(20px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+
+    @keyframes cardPop {
+      from { opacity:0; transform: scale(.95); }
+      to { opacity:1; transform: scale(1); }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">our restaurant</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto me-3">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="build.html">Build</a></li>
+        <li class="nav-item"><a class="nav-link" href="book.html">Book Slot</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+      </ul>
+
+      <a href="login.html" class="btn btn-outline-light px-3">Login</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container page-wrapper">
+
+  <h1 class="title-main">Contact Us</h1>
+  <p class="title-sub">
+    Have questions? Want to book a table or know more about our restaurant?<br>
+    Reach out to us using the form below.
+  </p>
+
+  <div class="row g-4">
+
+    <div class="col-lg-6 col-12">
+      <div class="card contact-card p-4">
+        <h4 class="mb-3">Send us a Message</h4>
+
+        <form>
+
+          <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" placeholder="Enter your name">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" placeholder="yourname@example.com">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea class="form-control" rows="4" placeholder="Type your message..."></textarea>
+          </div>
+
+          <button class="btn btn-dark w-100">Send Message</button>
+
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-12">
+      <div class="info-box">
+        <h4 class="mb-3">Restaurant Info</h4>
+
+        <p><strong>Address:</strong><br>
+          Our Restaurant,<br>
+          Main Street Road, Hyderabad, Telangana.
+        </p>
+
+        <p><strong>Phone:</strong> +91 98765 43210</p>
+        <p><strong>Email:</strong> support@Ourrestaurant.com</p>
+
+        <h5 class="mt-4 mb-2">Follow Us</h5>
+
+        <h5 class="mt-4 mb-2">Our Location</h5>
+
+        <div class="map-holder">
+          <img src="https://hyderabad-india-online.com/wp-content/uploads/2009/11/greater-hyd.png" alt="Restaurant Map">
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

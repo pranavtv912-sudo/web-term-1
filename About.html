@@ -1,0 +1,351 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Our Restaurant - About</title>
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <style>
+    body {
+      background: #f5f5f7;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+
+    .section {
+      padding-top: 100px;
+      padding-bottom: 50px;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .text {
+      font-size: 14px;
+      color: #555;
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .about-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .about-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.15);
+    }
+
+    .about-img {
+      width: 100%;
+      height: 400px;
+      border-radius: 14px;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .sub-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .sub-text {
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* -----------------------------
+       EXTRA: ANIMATIONS (ADDED)
+       ----------------------------- */
+
+    /* fade up animation */
+    @keyframes fadeInUpSoft {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* subtle float for cards */
+    @keyframes floatSoft {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    /* apply animation to section heading */
+    .section .title,
+    .section .text {
+      animation: fadeInUpSoft 0.7s ease-out both;
+    }
+
+    /* base animation for cards */
+    .about-card {
+      opacity: 0;
+      animation: fadeInUpSoft 0.8s ease-out forwards;
+    }
+
+    /* staggered delay for team cards */
+    .row.g-4 .col-md-4:nth-child(1) .about-card {
+      animation-delay: 0.15s;
+    }
+    .row.g-4 .col-md-4:nth-child(2) .about-card {
+      animation-delay: 0.3s;
+    }
+    .row.g-4 .col-md-4:nth-child(3) .about-card {
+      animation-delay: 0.45s;
+    }
+
+    /* optional hover float effect on top of your hover style */
+    .about-card:hover {
+      animation: floatSoft 3s ease-in-out infinite;
+    }
+
+    /* new section: focus cards for Build Your Meal */
+    .feature-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.1);
+      height: 100%;
+      transition: transform .25s ease, box-shadow .25s ease;
+      opacity: 0;
+      animation: fadeInUpSoft 0.8s ease-out forwards;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.16);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #111827;
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .feature-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .feature-text {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .feature-badge {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: #111827;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    .btn-build-main {
+      border-radius: 999px;
+      padding: 8px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .btn-build-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.22);
+    }
+
+    /* stagger for feature cards */
+    .build-features-row .col-md-4:nth-child(1) .feature-card {
+      animation-delay: 0.15s;
+    }
+    .build-features-row .col-md-4:nth-child(2) .feature-card {
+      animation-delay: 0.3s;
+    }
+    .build-features-row .col-md-4:nth-child(3) .feature-card {
+      animation-delay: 0.45s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section .title,
+      .section .text,
+      .about-card,
+      .feature-card,
+      .about-card:hover {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Our Restaurant</a>
+
+    <div class="collapse navbar-collapse show">
+      <ul class="navbar-nav ms-auto me-3">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="build.html">Build</a></li>
+        <li class="nav-item"><a class="nav-link" href="book.html">Book Slot</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">About</a></li>
+      </ul>
+      <a href="login.html" class="btn btn-outline-light px-3">Login</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Team Section -->
+<section class="section container">
+  <h1 class="title">Meet Our Team</h1>
+  <p class="text">
+    The people who make our build-your-own food experience special.
+  </p>
+
+  <div class="row g-4 justify-content-center mt-3">
+
+    <!-- Member 1 -->
+    <div class="col-md-4 col-sm-6">
+      <div class="about-card text-center">
+        <img
+          class="about-img"
+          src="C:\2025-26\Term-1\Pranavweb.jpg"
+          alt="Team Member 1"
+        >
+        <h4 class="sub-title mt-2">Mr.Pranav</h4>
+        <p class="sub-text">Design and Ideas</p>
+      </div>
+    </div>
+
+    <!-- Member 2 -->
+    <div class="col-md-4 col-sm-6">
+      <div class="about-card text-center">
+        <img
+          class="about-img"
+          src="C:\2025-26\Term-1\shashinathweb.jpg"
+          alt="Team Member 2"
+        >
+        <h4 class="sub-title mt-2">Mr.Shashinath Yadav</h4>
+        <p class="sub-text">Coding and Impletation</p>
+      </div>
+    </div>
+
+    <!-- Member 3 -->
+    <div class="col-md-4 col-sm-6">
+      <div class="about-card text-center">
+        <img
+          class="about-img"
+          src="C:\2025-26\Term-1\vaishnaviweb.jpg"
+          alt="Team Member 3"
+        >
+        <h4 class="sub-title mt-2">Mrs.vaishnavi</h4>
+        <p class="sub-text">Manager</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NEW SECTION: About Our Website & Build Your Meal (ADDED) -->
+<section class="section container">
+  <div class="text-center mb-3">
+    <span class="feature-badge">Our Website</span>
+  </div>
+  <h2 class="title">Build Your Meal · Your Way</h2>
+  <p class="text">
+    Our Restaurant website is built around one main idea: <b>you are the chef</b>.
+    With our <b>Build Your Meal</b> feature, you can choose your base, add ingredients,
+    set spice level and share health details so we can cook exactly the way you like it.
+  </p>
+
+  <div class="row g-4 mt-4 build-features-row">
+
+    <div class="col-md-4 col-sm-6">
+      <div class="feature-card text-start">
+        <div class="feature-icon"></div>
+        <h3 class="feature-title">1. Build Your Meal</h3>
+        <p class="feature-text">
+          Start on the <b>Build</b> page and choose your base like rice, pasta,
+          noodles, roti or salad. Then add veggies, protein, sauces and your
+          favourite flavour profile.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+      <div class="feature-card text-start">
+        <div class="feature-icon"></div>
+        <h3 class="feature-title">2. Health Friendly</h3>
+        <p class="feature-text">
+          Share health information such as diabetes, BP or low-salt diet on the
+          builder form so we can adjust <b>oil, salt, sugar and ingredients</b>
+          for a safer, healthier plate.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+      <div class="feature-card text-start">
+        <div class="feature-icon"></div>
+        <h3 class="feature-title">3. Book & Enjoy</h3>
+        <p class="feature-text">
+          Use the <b>Book Slot</b> page to reserve your table with date, time and
+          number of guests. Reach the restaurant, and your customized meal will be
+          prepared fresh for you.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="build.html" class="btn btn-dark btn-build-main">
+      Start Building Your Meal
+    </a>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

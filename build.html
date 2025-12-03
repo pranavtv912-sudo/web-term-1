@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Build Your Own Food</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <!-- Optional: Google Font Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      background: #f5f5f7;
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      margin: 90px 0 5px;
+    }
+
+    .page-sub {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 40px;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .step-card {
+      border-radius: 15px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+      transition: transform .3s, box-shadow .3s;
+      cursor: pointer;
+      position: relative; /* added for shine effect */
+    }
+
+    .step-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.22);
+    }
+
+    .step-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      /* subtle float animation */
+      animation: floatImg 4s ease-in-out infinite;
+      transition: transform .35s ease; /* for hover zoom */
+    }
+
+    .step-body {
+      padding: 15px 18px;
+    }
+
+    .step-tag {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6366f1;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .builder-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+      padding: 25px 25px 20px;
+      margin: 50px 0 40px;
+      position: relative; /* for glow border */
+      overflow: hidden;
+    }
+
+    .builder-title {
+      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .builder-sub {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .section-label {
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .small-help {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .upload-box {
+      border: 2px dashed #333;
+      border-radius: 15px;
+      background: white;
+      padding: 25px;
+      text-align: center;
+      margin: 25px 0 35px;
+      max-width: 500px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .upload-box input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .fake-modal {
+      margin: 0 auto 40px;
+      max-width: 400px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    /* =========================
+       ANIMATIONS (CSS ONLY)
+       ========================= */
+
+    .animate {
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes fadeInDownSoft {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes zoomInSoft {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes floatImg {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .fade-down {
+      animation-name: fadeInDownSoft;
+      animation-duration: 0.7s;
+      animation-timing-function: ease-out;
+    }
+
+    .fade-up {
+      animation-name: fadeInUp;
+      animation-duration: 0.8s;
+      animation-timing-function: ease-out;
+    }
+
+    .zoom-in {
+      animation-name: zoomInSoft;
+      animation-duration: 0.8s;
+      animation-timing-function: ease-out;
+    }
+
+    .anim-delay-1 { animation-delay: 0.1s; }
+    .anim-delay-2 { animation-delay: 0.25s; }
+    .anim-delay-3 { animation-delay: 0.4s; }
+    .anim-delay-4 { animation-delay: 0.55s; }
+    .anim-delay-5 { animation-delay: 0.7s; }
+    .anim-delay-6 { animation-delay: 0.85s; }
+
+    /* Reduce motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .animate {
+        animation: none !important;
+        opacity: 1 !important;
+      }
+      .step-card img {
+        animation: none;
+      }
+    }
+
+    /* Make space for fixed navbar */
+    main {
+      padding-top: 70px;
+    }
+
+    /* =========================================
+       EXTRA ADDITIONS: 1, 2, 4 (NO REMOVALS)
+       ========================================= */
+
+    /* 1) BUTTON HOVER EFFECTS (builder submit button) */
+    .builder-card button[type="submit"] {
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+    }
+
+    .builder-card button[type="submit"]:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+      background: #111827;
+      color: #fff;
+    }
+
+    /* 2) HIGHLIGHT BUILDER SECTION (soft glow + border) */
+    .builder-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, rgba(99,102,241,0.25), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(16,185,129,0.25), transparent 55%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .4s ease;
+    }
+
+    .builder-card:hover::before {
+      opacity: 1;
+    }
+
+    /* subtle breathing animation for the card shadow */
+    @keyframes builderGlow {
+      0%, 100% {
+        box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+      }
+      50% {
+        box-shadow: 0 14px 32px rgba(0,0,0,0.26);
+      }
+    }
+
+    .builder-card {
+      animation: builderGlow 4s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .builder-card {
+        animation: none !important;
+      }
+      .builder-card::before {
+        opacity: 0 !important;
+      }
+    }
+
+    /* 4) STEP CARDS BOOST – tilt, shine, image zoom */
+    .step-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -60%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.0), rgba(255,255,255,0.4), rgba(255,255,255,0.0));
+      transform: skewX(-20deg);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .step-card:hover::after {
+      opacity: 1;
+      animation: shineMove .9s ease-out;
+    }
+
+    @keyframes shineMove {
+      from {
+        transform: translateX(0) skewX(-20deg);
+      }
+      to {
+        transform: translateX(220%) skewX(-20deg);
+      }
+    }
+
+    /* slight tilt + stronger shadow when hovering */
+    .step-card:hover {
+      transform: translateY(-10px) rotate3d(1, 1, 0, 3deg);
+    }
+
+    /* image zoom on hover */
+    .step-card:hover img {
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top animate fade-down anim-delay-1">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Our Resturant</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto me-3">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="build.html">Build</a></li>
+        <li class="nav-item"><a class="nav-link" href="book.html">Book Slot</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+      </ul>
+
+      <a href="login.html" class="btn btn-outline-light px-3">Login</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <h1 class="page-title animate fade-up anim-delay-2">Build Your Own Food</h1>
+    <p class="page-sub animate fade-up anim-delay-3">
+      Choose base → add ingredients → customize flavour.<br>
+      Tell us about any health conditions so we can adjust oil, salt, sugar and ingredients safely.
+    </p>
+
+    <!-- Visual steps -->
+    <div class="row g-4">
+      <div class="col-md-4 col-12">
+        <div class="step-card animate zoom-in anim-delay-2">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8dHUNK7oTf_pqtzWNGfTOCVGnmQgcpJmNzw&s" alt="Food base image">
+          <div class="step-body">
+            <div class="step-tag">Step 1</div>
+            <div class="step-title">Choose Base</div>
+            <p>Rice, pasta, noodles, roti or salad base.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-12">
+        <div class="step-card animate zoom-in anim-delay-3">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLnUM067g-S3JiBZB9I_xcCtw3G5XI2RG_YA&s" alt="Add ingredients image">
+          <div class="step-body">
+            <div class="step-tag">Step 2</div>
+            <div class="step-title">Add Ingredients</div>
+            <p>Veggies, cheese, paneer, chicken, sauces.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-12">
+        <div class="step-card animate zoom-in anim-delay-4">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnLO1--M9_MX0Alz6JCd3IhRnDbhLtP3oCPg&s" alt="Flavour image">
+          <div class="step-body">
+            <div class="step-tag">Step 3</div>
+            <div class="step-title">Customize Taste</div>
+            <p>Mild, spicy, cheesy or smoky flavour.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actual builder form -->
+    <form method="POST" action="#" enctype="multipart/form-data">
+      <div class="builder-card animate fade-up anim-delay-5">
+        <div class="builder-title">Create Your Custom Dish</div>
+        <p class="builder-sub">
+          Select your base, ingredients, flavour and health details.<br>
+          We will try to match your taste and dietary needs as closely as possible.
+        </p>
+
+        <!-- Step 1: Base -->
+        <div class="section-label">1. Choose Your Base</div>
+        <p class="small-help mb-2">Pick exactly one base.</p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="base" id="baseRice" value="Rice Bowl" required>
+              <label class="form-check-label" for="baseRice">Rice Bowl</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="base" id="basePasta" value="Pasta Bowl">
+              <label class="form-check-label" for="basePasta">Pasta Bowl</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="base" id="baseNoodles" value="Noodles">
+              <label class="form-check-label" for="baseNoodles">Noodles</label>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="base" id="baseRoti" value="Roti Wrap">
+              <label class="form-check-label" for="baseRoti">Roti Wrap</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="base" id="baseSalad" value="Salad Bowl">
+              <label class="form-check-label" for="baseSalad">Salad Bowl</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cuisine / style -->
+        <div class="section-label">Style</div>
+        <p class="small-help mb-2">Choose the overall style of your dish.</p>
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <select class="form-select" name="cuisine" required>
+              <option value="" disabled selected>Select cuisine</option>
+              <option value="Indian Masala">Indian Masala</option>
+              <option value="Indo-Chinese">Indo-Chinese</option>
+              <option value="Italian">Italian</option>
+              <option value="Mexican">Mexican</option>
+              <option value="Healthy / Low Oil">Healthy / Low Oil</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Step 3: Ingredients -->
+        <div class="section-label">3. Add Ingredients</div>
+        <p class="small-help mb-2">Select all that you want to include.</p>
+
+        <div class="row">
+          <!-- Veggies -->
+          <div class="col-md-4 mb-3">
+            <strong style="font-size:14px;">Veggies</strong>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="veggies[]" id="vegCapsicum" value="Capsicum">
+              <label class="form-check-label" for="vegCapsicum">Capsicum</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="veggies[]" id="vegOnion" value="Onion">
+              <label class="form-check-label" for="vegOnion">Onion</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="veggies[]" id="vegCorn" value="Sweet Corn">
+              <label class="form-check-label" for="vegCorn">Sweet Corn</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="veggies[]" id="vegTomato" value="Tomato">
+              <label class="form-check-label" for="vegTomato">Tomato</label>
+            </div>
+          </div>
+
+          <!-- Proteins -->
+          <div class="col-md-4 mb-3">
+            <strong style="font-size:14px;">Protein</strong>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="protein[]" id="proPaneer" value="Paneer">
+              <label class="form-check-label" for="proPaneer">Paneer</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="protein[]" id="proChicken" value="Chicken">
+              <label class="form-check-label" for="proChicken">Chicken</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="protein[]" id="proEgg" value="Egg">
+              <label class="form-check-label" for="proEgg">Egg</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="protein[]" id="proTofu" value="Tofu">
+              <label class="form-check-label" for="proTofu">Tofu</label>
+            </div>
+          </div>
+
+          <!-- Extras / sauces -->
+          <div class="col-md-4 mb-3">
+            <strong style="font-size:14px;">Extras &amp; Sauces</strong>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="extras[]" id="extCheese" value="Extra Cheese">
+              <label class="form-check-label" for="extCheese">Extra Cheese</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="extras[]" id="extMayo" value="Mayo">
+              <label class="form-check-label" for="extMayo">Mayo</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="extras[]" id="extGarlic" value="Garlic Sauce">
+              <label class="form-check-label" for="extGarlic">Garlic Sauce</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="extras[]" id="extBBQ" value="Smoky BBQ">
+              <label class="form-check-label" for="extBBQ">Smoky BBQ</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Flavour & spice -->
+        <div class="section-label">4. Flavour &amp; Spice Level</div>
+
+        <div class="row mb-2">
+          <div class="col-md-6 mb-2">
+            <p class="small-help mb-1">Flavour profile</p>
+            <select class="form-select" name="flavour" required>
+              <option value="" disabled selected>Select flavour</option>
+              <option value="Mild & Creamy">Mild &amp; Creamy</option>
+              <option value="Spicy Masala">Spicy Masala</option>
+              <option value="Cheesy">Cheesy</option>
+              <option value="Smoky">Smoky</option>
+              <option value="Tangy">Tangy</option>
+            </select>
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <p class="small-help mb-1">Spice level</p>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="spice" id="spiceMild" value="Mild" required>
+              <label class="form-check-label" for="spiceMild">Mild</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="spice" id="spiceMedium" value="Medium">
+              <label class="form-check-label" for="spiceMedium">Medium</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="spice" id="spiceSpicy" value="Spicy">
+              <label class="form-check-label" for="spiceSpicy">Spicy</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="spice" id="spiceExtra" value="Extra Spicy">
+              <label class="form-check-label" for="spiceExtra">Extra Spicy</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Portion & notes -->
+        <div class="section-label">5. Portion &amp; Extra Notes</div>
+        <div class="row mb-3">
+          <div class="col-md-4 mb-2">
+            <label class="form-label small-help mb-1" for="portionSize">Portion size</label>
+            <select class="form-select" name="portion" id="portionSize" required>
+              <option value="" disabled selected>Select portion</option>
+              <option value="Single">Single (1 person)</option>
+              <option value="Double">Double (2 people)</option>
+              <option value="Family">Family (3-4 people)</option>
+            </select>
+          </div>
+          <div class="col-md-8 mb-2">
+            <label class="form-label small-help mb-1" for="notes">Taste / special instructions</label>
+            <textarea class="form-control" name="notes" id="notes" rows="2"
+                      placeholder="E.g. extra cheese, less oil, no onion/garlic, etc."></textarea>
+          </div>
+        </div>
+
+        <!-- Step 6: Disease / health information -->
+        <div class="section-label">6. Health / Disease Information</div>
+        <p class="small-help mb-2">
+          This helps us reduce sugar, salt, fat or certain ingredients as required.
+        </p>
+
+        <div class="row mb-3">
+          <div class="col-md-6 mb-3">
+            <strong style="font-size:14px;">Do you have any of these?</strong>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="disease[]" id="disDiabetes" value="Diabetes">
+              <label class="form-check-label" for="disDiabetes">Diabetes / Prediabetes</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="disease[]" id="disBP" value="High Blood Pressure">
+              <label class="form-check-label" for="disBP">High Blood Pressure (BP)</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="disease[]" id="disChol" value="High Cholesterol">
+              <label class="form-check-label" for="disChol">High Cholesterol</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="disease[]" id="disThyroid" value="Thyroid">
+              <label class="form-check-label" for="disThyroid">Thyroid</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="disease[]" id="disKidney" value="Kidney Issues">
+              <label class="form-check-label" for="disKidney">Kidney Issues</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="disease[]" id="disNone" value="None">
+              <label class="form-check-label" for="disNone">None of these</label>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label small-help mb-1" for="healthNotes">
+              More details
+            </label>
+            <textarea class="form-control" name="health_notes" id="healthNotes" rows="4"
+                      placeholder="E.g. taking diabetes medicine, low-salt diet, kidney-friendly food only, etc."></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <button type="submit" class="btn btn-outline-dark w-100 animate fade-up anim-delay-6">
+              Submit
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</main>
+
+<!-- Bootstrap JS for navbar toggler -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

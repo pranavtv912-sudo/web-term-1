@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up | AURORA RESTAURANT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- FIXED: Correct Bootstrap 5 CDN -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+      min-height: 100vh;
+      padding-top: 70px;
+    }
+
+    .signup-card {
+      max-width: 450px;
+      background: #ffffff;
+      padding: 25px 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      opacity: 0;
+      animation: fadeUp 0.7s ease-out forwards;
+    }
+
+    .signup-title {
+      font-weight: 600;
+    }
+
+    /* Simple animation */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Button hover effect */
+    button:hover {
+      transform: translateY(-2px);
+      transition: 0.2s;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="HOME.HTML">Our Restaurant</a>
+
+      <button class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse show">
+        <ul class="navbar-nav ms-auto me-3">
+          <li class="nav-item"><a class="nav-link" href="index.HTML">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="BUILD.HTML">Build</a></li>
+          <li class="nav-item"><a class="nav-link" href="BOOK.HTML">Book Slot</a></li>
+          <li class="nav-item"><a class="nav-link" href="CONTACT.HTML">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SIGNUP CARD -->
+  <div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="signup-card">
+      <h3 class="text-center signup-title">Create Account</h3>
+
+      <form action="#" method="post">
+
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" placeholder="Enter Full Name" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" placeholder="Enter Email" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" placeholder="Create Password" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" placeholder="Confirm Password" required>
+        </div>
+
+        <button class="btn btn-dark w-100 mt-2">Sign Up</button>
+
+      </form>
+
+      <p class="text-center mt-3" style="font-size: 14px;">
+        Already have an account?
+        <a href="Login.html">Login</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
