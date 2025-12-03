@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Our Restaurant - Home</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <style>
+    body {
+      background: #f5f5f7;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* Navbar */
+    .navbar-brand {
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+
+    .navbar-nav .nav-link {
+      font-size: 14px;
+    }
+
+    /* Home Section */
+    .home-section {
+      padding-top: 95px;
+      padding-bottom: 50px;
+    }
+
+    .home-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .home-text {
+      font-size: 14px;
+      color: #444;
+      max-width: 380px;
+    }
+
+    .tag-pill {
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: #111827;
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    /* Image Card */
+    .home-img-card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      transition: 0.3s ease;
+    }
+
+    .home-img-card img {
+      width: 100%;
+      height: auto;  /* responsive fix */
+      object-fit: cover;
+      transition: 0.5s ease;
+      /* floating animation */
+      animation: floatY 3s ease-in-out infinite;
+    }
+
+    .home-img-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.2);
+    }
+
+    .btn-main {
+      border-radius: 999px;
+      padding-inline: 22px;
+      font-size: 14px;
+      transition: .25s;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    /* Section Titles */
+    .sec-title {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .sec-text {
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* Build Cards */
+    .build-card {
+      border-radius: 15px;
+      background: #fff;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      overflow: hidden;
+      transition: 0.3s ease;
+    }
+
+    .build-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.18);
+    }
+
+    .build-card img {
+      width: 100%;
+      height: auto; /* responsive fix */
+      object-fit: cover;
+    }
+
+    .build-info {
+      padding: 12px 14px;
+    }
+
+    .mini-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #6b7280;
+    }
+
+    /* =========================
+       ANIMATIONS (CSS ONLY)
+       ========================= */
+
+    /* base animation class */
+    .animate {
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+
+    /* fade + up */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* fade + right */
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* zoom in */
+    @keyframes zoomInSoft {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* subtle float for hero image */
+    @keyframes floatY {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .fade-in-up {
+      animation-name: fadeInUp;
+      animation-duration: 0.8s;
+      animation-timing-function: ease-out;
+    }
+
+    .fade-in-right {
+      animation-name: fadeInRight;
+      animation-duration: 0.9s;
+      animation-timing-function: ease-out;
+    }
+
+    .zoom-in-soft {
+      animation-name: zoomInSoft;
+      animation-duration: 0.8s;
+      animation-timing-function: ease-out;
+    }
+
+    /* simple delay helpers */
+    .anim-delay-1 { animation-delay: 0.1s; }
+    .anim-delay-2 { animation-delay: 0.25s; }
+    .anim-delay-3 { animation-delay: 0.4s; }
+    .anim-delay-4 { animation-delay: 0.6s; }
+    .anim-delay-5 { animation-delay: 0.8s; }
+
+    /* Accessibility: reduce-motion support */
+    @media (prefers-reduced-motion: reduce) {
+      .animate {
+        animation: none !important;
+        opacity: 1 !important;
+      }
+      .home-img-card img {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top animate fade-in-up anim-delay-1">
+  <div class="container">
+    <a class="navbar-brand" href="#">Our Restaurant</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto me-3">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="build.html">Build</a></li>
+        <li class="nav-item"><a class="nav-link" href="book.html">Book Slot</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+      </ul>
+
+      <a href="login.html" class="btn btn-outline-light btn-main px-3">Login</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME SECTION -->
+<section class="home-section">
+  <div class="container">
+    <div class="row align-items-center g-4">
+
+      <div class="col-md-6 col-12 text-md-start text-center">
+        <div class="tag-pill animate fade-in-up anim-delay-1">Build · Eat · Repeat</div>
+        <h1 class="home-title animate fade-in-up anim-delay-2">Create your own plate.</h1>
+        <p class="home-text mx-md-0 mx-auto animate fade-in-up anim-delay-3">
+          Welcome to Our Restaurant—choose your base, add ingredients, and customize your flavour.
+        </p>
+        <a href="build.html" class="btn btn-dark btn-main mt-2 animate fade-in-up anim-delay-4">Start Building</a>
+      </div>
+
+      <div class="col-md-6 col-12 animate fade-in-right anim-delay-3">
+        <div class="home-img-card">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80" alt="Delicious food plate">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BUILD PREVIEW -->
+<section class="container pb-4">
+  <h2 class="sec-title text-center animate fade-in-up anim-delay-1">Build Your Own Food</h2>
+  <p class="sec-text text-center animate fade-in-up anim-delay-2">Design your meal in three simple steps.</p>
+
+  <div class="row g-3">
+
+    <div class="col-md-4 col-12">
+      <div class="build-card animate zoom-in-soft anim-delay-2">
+        <img src="https://www.foodandwine.com/thmb/ZkAP3EcS_3Lwu-QiRyvuOB5-tSw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Chile-Crisp-Sesame-Noodles-FT-RECIPE0721-b892cd905ffd4a199a1bdee3d3b076d8.jpg" alt="Choose base step">
+        <div class="build-info">
+          <div class="mini-tag">Step 1</div>
+          <h6>Choose Base</h6>
+          <p style="font-size:13px;">Rice, noodles, pasta, or roti.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-12">
+      <div class="build-card animate zoom-in-soft anim-delay-3">
+        <img src="https://admin.sriboga.com/storage/news/1685519116-asian-cuisine-ingredients-food-background-ginger-2023-05-09-20-34-33-utc.webp" alt="Add ingredients step">
+        <div class="build-info">
+          <div class="mini-tag">Step 2</div>
+          <h6>Add Ingredients</h6>
+          <p style="font-size:13px;">Veggies, paneer, chicken, sauces.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-12">
+      <div class="build-card animate zoom-in-soft anim-delay-4">
+        <img src="https://www.foodingredientfacts.org/wp-content/uploads/2016/02/AdobeStock_87648286-300x200.jpeg" alt="Customize taste step">
+        <div class="build-info">
+          <div class="mini-tag">Step 3</div>
+          <h6>Customize Taste</h6>
+          <p style="font-size:13px;">Mild, spicy, cheesy or smoky.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BOOK PREVIEW -->
+<section class="container text-center pb-3">
+  <h2 class="sec-title animate fade-in-up anim-delay-2">Book Your Slot</h2>
+  <p class="sec-text animate fade-in-up anim-delay-3">Reserve a table easily for dine-in.</p>
+</section>
+
+<!-- CONTACT PREVIEW -->
+<section class="container text-center pb-4">
+  <h2 class="sec-title animate fade-in-up anim-delay-2">Contact Us</h2>
+  <p class="sec-text animate fade-in-up anim-delay-3">Visit the Contact page for restaurant details.</p>
+</section>
+
+<!-- Bootstrap JS (for navbar toggler, no animation libs used) -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>
